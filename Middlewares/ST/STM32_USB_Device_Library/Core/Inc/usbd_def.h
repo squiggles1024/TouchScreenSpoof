@@ -90,8 +90,11 @@ extern "C" {
 #define USBD_CLASS_USER_STRING_DESC                     0U
 #endif /* USBD_CLASS_USER_STRING_DESC */
 
-#define  USB_LEN_DEV_QUALIFIER_DESC                     0x0AU
-#define  USB_LEN_DEV_DESC                               0x12U
+//#define  USB_LEN_DEV_QUALIFIER_DESC                     0x0AU
+#define QUALIFIER_DEV_DESC_LEN                          0x00U
+//#define  USB_LEN_DEV_DESC                               0x12U
+#define TOUCHSCREEN_DEV_DESC_LEN                        0x12U
+
 #define  USB_LEN_CFG_DESC                               0x09U
 #define  USB_LEN_IF_DESC                                0x09U
 #define  USB_LEN_EP_DESC                                0x07U

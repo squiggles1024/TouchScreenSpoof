@@ -132,87 +132,171 @@ USBD_ClassTypeDef  USBD_CUSTOM_HID =
 
 #ifndef USE_USBD_COMPOSITE
 /* USB CUSTOM_HID device FS Configuration Descriptor */
+/*
 __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_CfgDesc[USB_CUSTOM_HID_CONFIG_DESC_SIZ] __ALIGN_END =
 {
-  0x09,                                               /* bLength: Configuration Descriptor size */
-  USB_DESC_TYPE_CONFIGURATION,                        /* bDescriptorType: Configuration */
-  LOBYTE(USB_CUSTOM_HID_CONFIG_DESC_SIZ),             /* wTotalLength: Bytes returned */
+  0x09,                                               // bLength: Configuration Descriptor size
+  USB_DESC_TYPE_CONFIGURATION,                        // bDescriptorType: Configuration
+  LOBYTE(USB_CUSTOM_HID_CONFIG_DESC_SIZ),             // wTotalLength: Bytes returned
   HIBYTE(USB_CUSTOM_HID_CONFIG_DESC_SIZ),
-  0x01,                                               /* bNumInterfaces: 1 interface */
-  0x01,                                               /* bConfigurationValue: Configuration value */
-  0x00,                                               /* iConfiguration: Index of string descriptor
-                                                         describing the configuration */
+  0x01,                                               // bNumInterfaces: 1 interface
+  0x01,                                               // bConfigurationValue: Configuration value
+  0x00,                                               // iConfiguration: Index of string descriptor
+                                                         describing the configuration
 #if (USBD_SELF_POWERED == 1U)
-  0xC0,                                               /* bmAttributes: Bus Powered according to user configuration */
+  0xC0,                                               // bmAttributes: Bus Powered according to user configuration
 #else
-  0x80,                                               /* bmAttributes: Bus Powered according to user configuration */
-#endif /* USBD_SELF_POWERED */
-  USBD_MAX_POWER,                                     /* MaxPower (mA) */
+  0x80,                                               // bmAttributes: Bus Powered according to user configuration
+#endif USBD_SELF_POWERED
+  USBD_MAX_POWER,                                     // MaxPower (mA)
 
-  /************** Descriptor of CUSTOM HID interface ****************/
-  /* 09 */
-  0x09,                                               /* bLength: Interface Descriptor size*/
-  USB_DESC_TYPE_INTERFACE,                            /* bDescriptorType: Interface descriptor type */
-  0x00,                                               /* bInterfaceNumber: Number of Interface */
-  0x00,                                               /* bAlternateSetting: Alternate setting */
-  0x02,                                               /* bNumEndpoints*/
-  0x03,                                               /* bInterfaceClass: CUSTOM_HID */
-  0x00,                                               /* bInterfaceSubClass : 1=BOOT, 0=no boot */
-  0x00,                                               /* nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse */
-  0x00,                                               /* iInterface: Index of string descriptor */
-  /******************** Descriptor of CUSTOM_HID *************************/
-  /* 18 */
-  0x09,                                               /* bLength: CUSTOM_HID Descriptor size */
-  CUSTOM_HID_DESCRIPTOR_TYPE,                         /* bDescriptorType: CUSTOM_HID */
-  0x11,                                               /* bCUSTOM_HIDUSTOM_HID: CUSTOM_HID Class Spec release number */
+  //Descriptor of CUSTOM HID interface
+  // 09
+  0x09,                                               // bLength: Interface Descriptor size
+  USB_DESC_TYPE_INTERFACE,                            // bDescriptorType: Interface descriptor type
+  0x00,                                               // bInterfaceNumber: Number of Interface
+  0x00,                                               // bAlternateSetting: Alternate setting
+  0x02,                                               // bNumEndpoints
+  0x03,                                               // bInterfaceClass: CUSTOM_HID
+  0x00,                                               // bInterfaceSubClass : 1=BOOT, 0=no boot
+  0x00,                                               // nInterfaceProtocol : 0=none, 1=keyboard, 2=mouse
+  0x00,                                               // iInterface: Index of string descriptor
+  //Descriptor of CUSTOM_HID
+  // 18
+  0x09,                                               // bLength: CUSTOM_HID Descriptor size
+  CUSTOM_HID_DESCRIPTOR_TYPE,                         // bDescriptorType: CUSTOM_HID
+  0x11,                                               // bCUSTOM_HIDUSTOM_HID: CUSTOM_HID Class Spec release number
   0x01,
-  0x00,                                               /* bCountryCode: Hardware target country */
-  0x01,                                               /* bNumDescriptors: Number of CUSTOM_HID class descriptors
-                                                         to follow */
-  0x22,                                               /* bDescriptorType */
-  LOBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),           /* wItemLength: Total length of Report descriptor */
+  0x00,                                               // bCountryCode: Hardware target country
+  0x01,                                               // bNumDescriptors: Number of CUSTOM_HID class descriptors to follow
+  0x22,                                               // bDescriptorType
+  LOBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),           // wItemLength: Total length of Report descriptor
   HIBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),
-  /******************** Descriptor of Custom HID endpoints ********************/
-  /* 27 */
-  0x07,                                               /* bLength: Endpoint Descriptor size */
-  USB_DESC_TYPE_ENDPOINT,                             /* bDescriptorType: */
+  //Descriptor of Custom HID endpoints
+  // 27
+  0x07,                                               // bLength: Endpoint Descriptor size
+  USB_DESC_TYPE_ENDPOINT,                             // bDescriptorType:
 
-  CUSTOM_HID_EPIN_ADDR,                               /* bEndpointAddress: Endpoint Address (IN) */
-  0x03,                                               /* bmAttributes: Interrupt endpoint */
-  LOBYTE(CUSTOM_HID_EPIN_SIZE),                       /* wMaxPacketSize: 2 Bytes max */
+  CUSTOM_HID_EPIN_ADDR,                               // bEndpointAddress: Endpoint Address (IN)
+  0x03,                                               // bmAttributes: Interrupt endpoint
+  LOBYTE(CUSTOM_HID_EPIN_SIZE),                       // wMaxPacketSize: 2 Bytes max
   HIBYTE(CUSTOM_HID_EPIN_SIZE),
-  CUSTOM_HID_FS_BINTERVAL,                            /* bInterval: Polling Interval */
-  /* 34 */
+  CUSTOM_HID_FS_BINTERVAL,                            // bInterval: Polling Interval
+  // 34
 
-  0x07,                                               /* bLength: Endpoint Descriptor size */
-  USB_DESC_TYPE_ENDPOINT,                             /* bDescriptorType: */
-  CUSTOM_HID_EPOUT_ADDR,                              /* bEndpointAddress: Endpoint Address (OUT) */
-  0x03,                                               /* bmAttributes: Interrupt endpoint */
-  LOBYTE(CUSTOM_HID_EPOUT_SIZE),                      /* wMaxPacketSize: 2 Bytes max  */
+  0x07,                                               // bLength: Endpoint Descriptor size
+  USB_DESC_TYPE_ENDPOINT,                             // bDescriptorType:
+  CUSTOM_HID_EPOUT_ADDR,                              // bEndpointAddress: Endpoint Address (OUT)
+  0x03,                                               // bmAttributes: Interrupt endpoint
+  LOBYTE(CUSTOM_HID_EPOUT_SIZE),                      // wMaxPacketSize: 2 Bytes max
   HIBYTE(CUSTOM_HID_EPOUT_SIZE),
-  CUSTOM_HID_FS_BINTERVAL,                            /* bInterval: Polling Interval */
-  /* 41 */
+  CUSTOM_HID_FS_BINTERVAL,                            // bInterval: Polling Interval
+  // 41
+};
+*/
+
+__ALIGN_BEGIN uint8_t TouchScreenConfigDesc[TouchScreenCfgDescSize] __ALIGN_END =
+{
+    0x09,
+	0x02,
+	0x3B,
+	0x00,
+	0x01,
+	0x01,
+	0x05,
+	0x80,
+	0x64,
+	///Start Intfc1
+	0x09,
+	0x04,
+	0x00,
+	0x00,
+	0x01,
+	0x03,
+	0x00,
+	0x00,
+	0x04,
+	//Start HID
+	0x09,
+	0x21,
+	0x11,
+	0x01,
+	0x00,
+	0x01,
+	0x22,
+	0xDC,
+	0x03,
+	//Start EP
+	0x07,
+	0x05,
+	0x83,
+	0x03,
+	0x40,
+	0x00,
+	0x01,
+	//Start Intfc2
+	0x09,
+	0x04,
+	0x00,
+	0x01,
+	0x01,
+	0x03,
+	0x00,
+	0x00,
+	0x04,
+	//Start EP
+	0x07,
+	0x05,
+	0x83,
+	0x03,
+	0x40,
+	0x00,
+	0x01,
+	//Start HID
+	0x09,
+	0x21,
+	0x11,
+	0x01,
+	0x00,
+	0x01,
+	0x22,
+	0xDC,
+	0x03
+};
+
+__ALIGN_BEGIN uint8_t TouchScreenHIDDesc[TouchScreenHIDDescSize] __ALIGN_END =
+{
+		0x09,
+		0x21,
+		0x11,
+		0x01,
+		0x00,
+		0x01,
+		0x22,
+		0xDC,
+		0x03
 };
 #endif /* USE_USBD_COMPOSITE  */
 
-/* USB CUSTOM_HID device Configuration Descriptor */
+// USB CUSTOM_HID device Configuration Descriptor
+/*
 __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_Desc[USB_CUSTOM_HID_DESC_SIZ] __ALIGN_END =
 {
-  /* 18 */
-  0x09,                                               /* bLength: CUSTOM_HID Descriptor size */
-  CUSTOM_HID_DESCRIPTOR_TYPE,                         /* bDescriptorType: CUSTOM_HID */
-  0x11,                                               /* bCUSTOM_HIDUSTOM_HID: CUSTOM_HID Class Spec release number */
+  // 18
+  0x09,                                               // bLength: CUSTOM_HID Descriptor size
+  CUSTOM_HID_DESCRIPTOR_TYPE,                         // bDescriptorType: CUSTOM_HID
+  0x11,                                               // bCUSTOM_HIDUSTOM_HID: CUSTOM_HID Class Spec release number
   0x01,
-  0x00,                                               /* bCountryCode: Hardware target country */
-  0x01,                                               /* bNumDescriptors: Number of CUSTOM_HID class descriptors
-                                                         to follow */
-  0x22,                                               /* bDescriptorType */
-  LOBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),                   /* wItemLength: Total length of Report descriptor */
+  0x00,                                               // bCountryCode: Hardware target country
+  0x01,                                               // bNumDescriptors: Number of CUSTOM_HID class descriptors to follow
+  0x22,                                               // bDescriptorType
+  LOBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),                   // wItemLength: Total length of Report descriptor
   HIBYTE(USBD_CUSTOM_HID_REPORT_DESC_SIZE),
 };
-
+*/
 #ifndef USE_USBD_COMPOSITE
-/* USB Standard Device Descriptor */
+// USB Standard Device Descriptor
+/*
 __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] __ALIGN_END =
 {
   USB_LEN_DEV_QUALIFIER_DESC,
@@ -226,10 +310,13 @@ __ALIGN_BEGIN static uint8_t USBD_CUSTOM_HID_DeviceQualifierDesc[USB_LEN_DEV_QUA
   0x01,
   0x00,
 };
-#endif /* USE_USBD_COMPOSITE  */
+*/
 
-static uint8_t CUSTOMHIDInEpAdd = CUSTOM_HID_EPIN_ADDR;
-static uint8_t CUSTOMHIDOutEpAdd = CUSTOM_HID_EPOUT_ADDR;
+static uint8_t *TouchScreenQualDesc;
+#endif // USE_USBD_COMPOSITE
+
+//static uint8_t TouchSceenInEpAddr = TouchScreen_EP_Addr;
+//static uint8_t CUSTOMHIDOutEpAdd = TOUCH_SCREEN_EPIN_ADDR;
 /**
   * @}
   */
@@ -269,26 +356,24 @@ static uint8_t USBD_CUSTOM_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   if (pdev->dev_speed == USBD_SPEED_HIGH)
   {
-    pdev->ep_in[CUSTOMHIDInEpAdd & 0xFU].bInterval = CUSTOM_HID_HS_BINTERVAL;
-    pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = CUSTOM_HID_HS_BINTERVAL;
+    pdev->ep_in[TouchScreen_EP_Addr & 0xFU].bInterval = TouchScreen_Interval;
+    //pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = TouchScreen_Interval;
   }
   else   /* LOW and FULL-speed endpoints */
   {
-    pdev->ep_in[CUSTOMHIDInEpAdd & 0xFU].bInterval = CUSTOM_HID_FS_BINTERVAL;
-    pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = CUSTOM_HID_FS_BINTERVAL;
+    pdev->ep_in[TouchScreen_EP_Addr & 0xFU].bInterval = TouchScreen_Interval;
+    //pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = TouchScreen_Interval;
   }
 
   /* Open EP IN */
-  (void)USBD_LL_OpenEP(pdev, CUSTOMHIDInEpAdd, USBD_EP_TYPE_INTR,
-                       CUSTOM_HID_EPIN_SIZE);
+  (void)USBD_LL_OpenEP(pdev, TouchScreen_EP_Addr, USBD_EP_TYPE_INTR, TouchScreen_EP_Size);
 
-  pdev->ep_in[CUSTOMHIDInEpAdd & 0xFU].is_used = 1U;
+  pdev->ep_in[TouchScreen_EP_Addr & 0xFU].is_used = 1U;
 
   /* Open EP OUT */
-  (void)USBD_LL_OpenEP(pdev, CUSTOMHIDOutEpAdd, USBD_EP_TYPE_INTR,
-                       CUSTOM_HID_EPOUT_SIZE);
+  //(void)USBD_LL_OpenEP(pdev, CUSTOMHIDOutEpAdd, USBD_EP_TYPE_INTR, CUSTOM_HID_EPOUT_SIZE);
 
-  pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].is_used = 1U;
+  //pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].is_used = 1U;
 
   hhid->state = CUSTOM_HID_IDLE;
 
@@ -321,14 +406,14 @@ static uint8_t USBD_CUSTOM_HID_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 #endif /* USE_USBD_COMPOSITE */
 
   /* Close CUSTOM_HID EP IN */
-  (void)USBD_LL_CloseEP(pdev, CUSTOMHIDInEpAdd);
-  pdev->ep_in[CUSTOMHIDInEpAdd & 0xFU].is_used = 0U;
-  pdev->ep_in[CUSTOMHIDInEpAdd & 0xFU].bInterval = 0U;
+  (void)USBD_LL_CloseEP(pdev, TouchScreen_EP_Addr);
+  pdev->ep_in[TouchScreen_EP_Addr & 0xFU].is_used = 0U;
+  pdev->ep_in[TouchScreen_EP_Addr & 0xFU].bInterval = 0U;
 
   /* Close CUSTOM_HID EP OUT */
-  (void)USBD_LL_CloseEP(pdev, CUSTOMHIDOutEpAdd);
-  pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].is_used = 0U;
-  pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = 0U;
+  //(void)USBD_LL_CloseEP(pdev, CUSTOMHIDOutEpAdd);
+  //pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].is_used = 0U;
+  //pdev->ep_out[CUSTOMHIDOutEpAdd & 0xFU].bInterval = 0U;
 
   /* Free allocated memory */
   if (pdev->pClassDataCmsit[pdev->classId] != NULL)
@@ -467,15 +552,15 @@ static uint8_t USBD_CUSTOM_HID_Setup(USBD_HandleTypeDef *pdev,
         case USB_REQ_GET_DESCRIPTOR:
           if ((req->wValue >> 8) == CUSTOM_HID_REPORT_DESC)
           {
-            len = MIN(USBD_CUSTOM_HID_REPORT_DESC_SIZE, req->wLength);
+            len = MIN(REPORT_DESC_SIZE, req->wLength);
             pbuf = ((USBD_CUSTOM_HID_ItfTypeDef *)pdev->pUserData[pdev->classId])->pReport;
           }
           else
           {
             if ((req->wValue >> 8) == CUSTOM_HID_DESCRIPTOR_TYPE)
             {
-              pbuf = USBD_CUSTOM_HID_Desc;
-              len = MIN(USB_CUSTOM_HID_DESC_SIZ, req->wLength);
+              pbuf = TouchScreenHIDDesc;
+              len = MIN(TouchScreenHIDDescSize, req->wLength);
             }
           }
 
@@ -559,7 +644,7 @@ uint8_t USBD_CUSTOM_HID_SendReport(USBD_HandleTypeDef *pdev,
     if (hhid->state == CUSTOM_HID_IDLE)
     {
       hhid->state = CUSTOM_HID_BUSY;
-      (void)USBD_LL_Transmit(pdev, CUSTOMHIDInEpAdd, report, len);
+      (void)USBD_LL_Transmit(pdev, TouchScreen_EP_Addr, report, len);
     }
     else
     {
@@ -578,23 +663,23 @@ uint8_t USBD_CUSTOM_HID_SendReport(USBD_HandleTypeDef *pdev,
   */
 static uint8_t *USBD_CUSTOM_HID_GetFSCfgDesc(uint16_t *length)
 {
-  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPIN_ADDR);
-  USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
+  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(TouchScreenConfigDesc, TouchScreen_EP_Addr);
+  //USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
 
   if (pEpInDesc != NULL)
   {
-    pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
-    pEpInDesc->bInterval = CUSTOM_HID_FS_BINTERVAL;
+    pEpInDesc->wMaxPacketSize = TouchScreen_EP_Size;
+    pEpInDesc->bInterval = TouchScreen_Interval;
   }
 
-  if (pEpOutDesc != NULL)
+  /*if (pEpOutDesc != NULL)
   {
     pEpOutDesc->wMaxPacketSize = CUSTOM_HID_EPOUT_SIZE;
     pEpOutDesc->bInterval = CUSTOM_HID_FS_BINTERVAL;
-  }
+  }*/
 
-  *length = (uint16_t)sizeof(USBD_CUSTOM_HID_CfgDesc);
-  return USBD_CUSTOM_HID_CfgDesc;
+  *length = (uint16_t)sizeof(TouchScreenConfigDesc);
+  return TouchScreenConfigDesc;
 }
 
 /**
@@ -606,23 +691,23 @@ static uint8_t *USBD_CUSTOM_HID_GetFSCfgDesc(uint16_t *length)
   */
 static uint8_t *USBD_CUSTOM_HID_GetHSCfgDesc(uint16_t *length)
 {
-  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPIN_ADDR);
-  USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
+  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(TouchScreenConfigDesc, TouchScreen_EP_Addr);
+  //USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
 
   if (pEpInDesc != NULL)
   {
-    pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
-    pEpInDesc->bInterval = CUSTOM_HID_HS_BINTERVAL;
+    pEpInDesc->wMaxPacketSize = TouchScreen_EP_Size;
+    pEpInDesc->bInterval = TouchScreen_Interval;
   }
 
-  if (pEpOutDesc != NULL)
+  /*if (pEpOutDesc != NULL)
   {
     pEpOutDesc->wMaxPacketSize = CUSTOM_HID_EPOUT_SIZE;
     pEpOutDesc->bInterval = CUSTOM_HID_HS_BINTERVAL;
-  }
+  }*/
 
-  *length = (uint16_t)sizeof(USBD_CUSTOM_HID_CfgDesc);
-  return USBD_CUSTOM_HID_CfgDesc;
+  *length = (uint16_t)sizeof(TouchScreenConfigDesc);
+  return TouchScreenConfigDesc;
 }
 
 /**
@@ -634,23 +719,23 @@ static uint8_t *USBD_CUSTOM_HID_GetHSCfgDesc(uint16_t *length)
   */
 static uint8_t *USBD_CUSTOM_HID_GetOtherSpeedCfgDesc(uint16_t *length)
 {
-  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPIN_ADDR);
-  USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
+  USBD_EpDescTypeDef *pEpInDesc = USBD_GetEpDesc(TouchScreenConfigDesc, TouchScreen_EP_Addr);
+  //USBD_EpDescTypeDef *pEpOutDesc = USBD_GetEpDesc(USBD_CUSTOM_HID_CfgDesc, CUSTOM_HID_EPOUT_ADDR);
 
   if (pEpInDesc != NULL)
   {
-    pEpInDesc->wMaxPacketSize = CUSTOM_HID_EPIN_SIZE;
-    pEpInDesc->bInterval = CUSTOM_HID_FS_BINTERVAL;
+    pEpInDesc->wMaxPacketSize = TouchScreen_EP_Size;
+    pEpInDesc->bInterval = TouchScreen_Interval;
   }
 
-  if (pEpOutDesc != NULL)
+  /*if (pEpOutDesc != NULL)
   {
     pEpOutDesc->wMaxPacketSize = CUSTOM_HID_EPOUT_SIZE;
     pEpOutDesc->bInterval = CUSTOM_HID_FS_BINTERVAL;
-  }
+  }*/
 
-  *length = (uint16_t)sizeof(USBD_CUSTOM_HID_CfgDesc);
-  return USBD_CUSTOM_HID_CfgDesc;
+  *length = (uint16_t)sizeof(TouchScreenConfigDesc);
+  return TouchScreenConfigDesc;
 }
 #endif /* USE_USBD_COMPOSITE  */
 
@@ -723,8 +808,7 @@ uint8_t USBD_CUSTOM_HID_ReceivePacket(USBD_HandleTypeDef *pdev)
   hhid = (USBD_CUSTOM_HID_HandleTypeDef *)pdev->pClassDataCmsit[pdev->classId];
 
   /* Resume USB Out process */
-  (void)USBD_LL_PrepareReceive(pdev, CUSTOMHIDOutEpAdd, hhid->Report_buf,
-                               USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
+  //(void)USBD_LL_PrepareReceive(pdev, CUSTOMHIDOutEpAdd, hhid->Report_buf, USBD_CUSTOMHID_OUTREPORT_BUF_SIZE);
 
   return (uint8_t)USBD_OK;
 }
@@ -764,9 +848,9 @@ static uint8_t USBD_CUSTOM_HID_EP0_RxReady(USBD_HandleTypeDef *pdev)
   */
 static uint8_t *USBD_CUSTOM_HID_GetDeviceQualifierDesc(uint16_t *length)
 {
-  *length = (uint16_t)sizeof(USBD_CUSTOM_HID_DeviceQualifierDesc);
+  *length = 0;
 
-  return USBD_CUSTOM_HID_DeviceQualifierDesc;
+  return TouchScreenQualDesc;
 }
 #endif /* USE_USBD_COMPOSITE  */
 /**
