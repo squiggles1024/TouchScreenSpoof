@@ -49,7 +49,7 @@ extern "C" {
 #endif /* CUSTOM_HID_EPIN_SIZE */
 
 #define TouchScreen_EP_Addr                            0x83
-#define TouchScreen_EP_Size                            0x64
+#define TouchScreen_EP_Size                            64
 
 
 #ifndef CUSTOM_HID_EPOUT_ADDR
